@@ -9,17 +9,25 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @EnvironmentObject private var vm : HomeViewModel
     @State private var showPortFolio : Bool = false
     
     var body: some View {
         ZStack {
             
             Color.theme.background
+                .ignoresSafeArea()
             
             VStack {
                 
                 homeHeader
-
+                if !showPortFolio {
+                    allCoinsList
+                }
+                if showPortFolio {
+                    portFolioCoinsList
+                }
+                
                 Spacer(minLength: 0)
             }
            
@@ -28,7 +36,12 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    let dev = DeveloperPreview.instance
+    NavigationStack {
+        HomeView()
+            .navigationBarHidden(true)
+    }
+    .environmentObject(dev.homeVm)
 }
 
 
@@ -57,5 +70,24 @@ extension HomeView {
             
         }
         .padding(.horizontal)
+    }
+    
+    private var allCoinsList : some View {
+        List {
+            ForEach(vm.allCoins) { coin in
+                CoinRowView(coin: coin, showHoldingColumns: false)
+            }
+          
+        }
+        .listStyle(.plain)
+    }
+    
+    private var portFolioCoinsList : some View {
+        List {
+            ForEach(vm.portFolioCoins) { coin in
+                CoinRowView(coin: coin, showHoldingColumns: true)
+            }
+        }
+        .listStyle(.plain)
     }
 }
