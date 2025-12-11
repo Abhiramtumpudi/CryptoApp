@@ -17,17 +17,20 @@ struct HomeView: View {
             
             Color.theme.background
                 .ignoresSafeArea()
-            
+           
             VStack {
-                
                 homeHeader
+                coinTitles
+                .padding()
                 if !showPortFolio {
                     allCoinsList
+                        .transition(.move(edge: .leading))
                 }
                 if showPortFolio {
                     portFolioCoinsList
+                        .transition(.move(edge: .trailing))
+
                 }
-                
                 Spacer(minLength: 0)
             }
            
@@ -76,10 +79,12 @@ extension HomeView {
         List {
             ForEach(vm.allCoins) { coin in
                 CoinRowView(coin: coin, showHoldingColumns: false)
+                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10 ))
             }
           
         }
         .listStyle(.plain)
+        
     }
     
     private var portFolioCoinsList : some View {
@@ -89,5 +94,19 @@ extension HomeView {
             }
         }
         .listStyle(.plain)
+    }
+    private var coinTitles : some View {
+            HStack {
+                Text("Coins")
+                Spacer()
+                if showPortFolio {
+                    Text("Holdings")
+                }
+                 Text("Prices")
+                    .frame(width: UIScreen.main.bounds.width / 3.5 , alignment: .trailing)
+        }
+            .font(.caption)
+            .foregroundStyle(.secondaryText)
+            .padding(.horizontal)
     }
 }
