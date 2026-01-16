@@ -20,6 +20,7 @@ struct HomeView: View {
            
             VStack {
                 homeHeader
+                SearchBarView(searchText: $vm.searchText)
                 coinTitles
                 .padding()
                 if !showPortFolio {
