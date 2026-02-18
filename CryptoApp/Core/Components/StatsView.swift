@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct StaticView: View {
+struct StatsView: View {
     
-    let stat : StaticViewModel
+    let stat : StatsModel
     
     var body: some View {
         
@@ -17,6 +17,7 @@ struct StaticView: View {
             Text(stat.title)
                 .font(.caption)
                 .foregroundStyle(Color.theme.secondaryText)
+            
             Text(stat.value)
                 .font(.headline)
                 .foregroundStyle(Color.theme.accent)
@@ -24,27 +25,22 @@ struct StaticView: View {
             HStack {
                 Image(systemName: "triangle.fill")
                     .font(.caption2)
-                    .rotationEffect(Angle(degrees: (stat.percentageChange ?? 0) >= 0 ?
-                                          0 : 180))
+                    .rotationEffect(Angle(degrees: (stat.percentageChange ?? 0) >= 0 ? 0 : 180))
                 Text(stat.percentageChange?.asPercentageString() ?? "")
                     .font(.caption)
                     .bold()
-                
             }
             .foregroundStyle((stat.percentageChange ?? 0) >= 0 ? Color.theme.green : Color.theme.red)
             .opacity(stat.percentageChange == nil ? 0.0 : 1.0)
         }
-        
     }
 }
 
 #Preview {
     Group {
-        StaticView(stat: DeveloperPreview.instance.stat1)
-        StaticView(stat: DeveloperPreview.instance.stat2)
-        StaticView(stat: DeveloperPreview.instance.stat3)
-            .preferredColorScheme(.dark)
-
+       StatsView(stat: DeveloperPreview.instance.stat1)
+       StatsView(stat: DeveloperPreview.instance.stat2)
+       StatsView(stat: DeveloperPreview.instance.stat3)
     }
    
 }

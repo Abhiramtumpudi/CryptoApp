@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StaticViewModel : Identifiable {
+struct StatsModel : Identifiable {
     
     let id = UUID().uuidString
     let title : String

@@ -1,0 +1,61 @@
+//
+//  MarketDataModel.swift
+//  CryptoApp
+//
+//  Created by Apple on 12/02/26.
+//
+
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
+//
+//   let welcome = try? JSONDecoder().decode(Welcome.self, from: jsonData)
+
+import Foundation
+
+// MARK: - Welcome
+struct GlobalData: Codable {
+    let data: MarketDataModel?
+}
+
+// MARK: - DataClass
+struct MarketDataModel: Codable {
+   
+    let totalMarketCap, totalVolume, marketCapPercentage: [String: Double]
+    let marketCapChangePercentage24HUsd : Double
+
+    enum CodingKeys: String, CodingKey {
+        
+        case totalMarketCap = "total_market_cap"
+        case totalVolume = "total_volume"
+        case marketCapPercentage = "market_cap_percentage"
+        case marketCapChangePercentage24HUsd = "market_cap_change_percentage_24h_usd"
+        
+    }
+    
+
+    var marketCap : String {
+        
+        if let item = totalMarketCap.first(where: { $0.key == "usd" }) {
+            return  "$" + item.value.formattedWithAbbreviations()
+        }
+        
+        return ""
+    }
+    
+    var volume : String {
+        
+        if let item = totalVolume.first(where: { $0.key == "usd" }) {
+            return  "$" + item.value.formattedWithAbbreviations()
+        }
+        
+        return ""
+    }
+    
+    var bitCoinDominanace : String {
+        
+        if let item = marketCapPercentage.first(where: { $0.key == "btc" }) {
+            return item.value.asPercentageString()
+        }
+        return ""
+    }
+}

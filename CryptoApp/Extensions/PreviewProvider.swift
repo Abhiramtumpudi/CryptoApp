@@ -22,9 +22,9 @@ class DeveloperPreview {
     
     let homeVm = HomeViewModel()
     
-    let stat1 = StaticViewModel(title: "Market Cap", value: "$12.5BN", percentageChange: -34.9)
-    let stat2 = StaticViewModel(title: "Total Volume", value: "$23.6Tr")
-    let stat3 = StaticViewModel(title: "Change", value: "93.5K", percentageChange: 55.9)
+    let stat1 = StatsModel(title: "Market Cap", value: "$12.5BN", percentageChange: 25.34)
+    let stat2 = StatsModel(title: "Total Volume", value: "$1.23Tr")
+    let stat3 = StatsModel(title: "Change", value: "93.5K", percentageChange: 55.9)
 
     
     let coin = CoinModel(

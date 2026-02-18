@@ -64,4 +64,37 @@ extension Double {
     func  asPercentageString()-> String {
         return asNumberString() + "%"
     }
-}
+    
+    
+    // Convert to Double to String
+
+    
+        
+        func formattedWithAbbreviations() -> String {
+            let number = abs(self)
+            let sign = self < 0 ? "-" : ""
+            
+            switch number {
+            case 1_000_000_000_000...:
+                return sign + format(number / 1_000_000_000_000) + "Tr"
+            case 1_000_000_000...:
+                return sign + format(number / 1_000_000_000) + "Bn"
+            case 1_000_000...:
+                return sign + format(number / 1_000_000) + "M"
+            case 1_000...:
+                return sign + format(number / 1_000) + "K"
+            default:
+                return sign + format(number)
+            }
+        }
+        
+        private func format(_ value: Double) -> String {
+            let formatter = NumberFormatter()
+            formatter.maximumFractionDigits = 2
+            formatter.minimumFractionDigits = 0
+            formatter.numberStyle = .decimal
+            return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
+        }
+    }
+
+
